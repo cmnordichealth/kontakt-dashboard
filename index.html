@@ -37,7 +37,8 @@
     document.getElementById('count-3-12').textContent = data['3-12'].toLocaleString('da-DK');
     document.getElementById('count-12plus').textContent = data['12+'].toLocaleString('da-DK');
     const now = new Date();
-    document.getElementById('updated-at').textContent = 'Sidst opdateret: ' + now.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' });
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('updated-at').textContent = 'Sidst opdateret: ' + now.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }) + ' kl.' + pad(now.getHours()) + '.' + pad(now.getMinutes());
   </script>
 </body>
 </html>
