@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kontakt Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+    h1 { font-size: 1.4rem; font-weight: 600; color: #374151; margin-bottom: 8px; }
+    .subtitle { font-size: 0.85rem; color: #9ca3af; margin-bottom: 48px; }
+    .cards { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .card { background: white; border-radius: 16px; padding: 36px 40px; text-align: center; width: 200px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border-top: 4px solid transparent; }
+    .card.green { border-top-color: #10b981; }
+    .card.amber { border-top-color: #f59e0b; }
+    .card.red { border-top-color: #ef4444; }
+    .card .number { font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 12px; }
+    .card.green .number { color: #10b981; }
+    .card.amber .number { color: #f59e0b; }
+    .card.red .number { color: #ef4444; }
+    .card .label { font-size: 0.85rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; }
+    .updated { margin-top: 48px; font-size: 0.78rem; color: #d1d5db; }
+  </style>
+</head>
+<body>
+  <h1>Kontaktoversigt</h1>
+  <p class="subtitle">Nordic Health Group</p>
+  <div class="cards">
+    <div class="card green"><div class="number" id="count-0-3">-</div><div class="label">0 - 3 mdr.</div></div>
+    <div class="card amber"><div class="number" id="count-3-12">-</div><div class="label">3 - 12 mdr.</div></div>
+    <div class="card red"><div class="number" id="count-12plus">-</div><div class="label">12+ mdr.</div></div>
+  </div>
+  <p class="updated" id="updated-at"></p>
+  <script>
+    const data = { "0-3": 42, "3-12": 87, "12+": 134 };
+    document.getElementById('count-0-3').textContent = data['0-3'].toLocaleString('da-DK');
+    document.getElementById('count-3-12').textContent = data['3-12'].toLocaleString('da-DK');
+    document.getElementById('count-12plus').textContent = data['12+'].toLocaleString('da-DK');
+    const now = new Date();
+    document.getElementById('updated-at').textContent = 'Sidst opdateret: ' + now.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
