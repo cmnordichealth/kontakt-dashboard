@@ -6,46 +6,111 @@
   <title>Kontakt Dashboard</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
-    h1 { font-size: 1.4rem; font-weight: 600; color: #374151; margin-bottom: 8px; }
-    .subtitle { font-size: 0.85rem; color: #9ca3af; margin-bottom: 48px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+
+    /* ── Navigation ── */
+    .nav { display: flex; gap: 8px; margin-bottom: 36px; background: white; padding: 6px; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+    .nav-btn { padding: 10px 28px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; background: transparent; color: #6b7280; transition: all 0.18s ease; }
+    .nav-btn:hover { background: #f0f4f8; color: #374151; }
+    .nav-btn.active { background: #4338ca; color: white; box-shadow: 0 2px 8px rgba(67,56,202,0.3); }
+
+    /* ── Page ── */
+    .page { display: none; flex-direction: column; align-items: center; width: 100%; }
+    .page.active { display: flex; }
+
+    h1 { font-size: 1.4rem; font-weight: 600; color: #374151; margin-bottom: 6px; }
+    .subtitle { font-size: 0.85rem; color: #9ca3af; margin-bottom: 28px; }
+
+    .section-header { background: white; border-radius: 12px; padding: 14px 24px; margin-bottom: 32px; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-left: 4px solid #6366f1; max-width: 560px; width: 100%; }
+    .section-title { font-size: 0.95rem; font-weight: 700; color: #4338ca; margin-bottom: 4px; }
+    .section-desc { font-size: 0.82rem; color: #6b7280; }
+
+    /* ── Cards ── */
     .cards { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-    .card { background: white; border-radius: 16px; padding: 36px 40px; text-align: center; width: 200px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border-top: 4px solid transparent; }
+    .card { background: white; border-radius: 16px; padding: 36px 40px; text-align: center; width: 200px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border-top: 4px solid transparent; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
     .card.green { border-top-color: #10b981; }
     .card.amber { border-top-color: #f59e0b; }
-    .card.red { border-top-color: #ef4444; }
+    .card.red   { border-top-color: #ef4444; }
     .card .number { font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 12px; }
     .card.green .number { color: #10b981; }
     .card.amber .number { color: #f59e0b; }
-    .card.red .number { color: #ef4444; }
+    .card.red   .number { color: #ef4444; }
     .card .label { font-size: 0.85rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; }
-    .section-header { background: white; border-radius: 12px; padding: 16px 24px; margin-bottom: 36px; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border-left: 4px solid #6366f1; max-width: 560px; }
-    .section-title { font-size: 0.95rem; font-weight: 700; color: #4338ca; margin-bottom: 4px; }
-    .section-desc { font-size: 0.82rem; color: #6b7280; }
+
     .updated { margin-top: 48px; font-size: 0.78rem; color: #d1d5db; }
   </style>
 </head>
 <body>
-  <h1>🇸🇪 Kontaktoversigt Sverige</h1>
-  <p class="subtitle">Nordic Health Group</p>
-  <div class="section-header">
-    <p class="section-title">Uge 1 — Fundament + første aktivering</p>
-    <p class="section-desc">Patient har haft FU, men ikke booket næste aftale/behandling</p>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showPage('se', this)">🇸🇪 Sverige</button>
+    <button class="nav-btn" onclick="showPage('no', this)">🇳🇴 Norge</button>
+  </nav>
+
+  <!-- Sverige -->
+  <div class="page active" id="page-se">
+    <h1>🇸🇪 Kontaktoversigt Sverige</h1>
+    <p class="subtitle">Nordic Health Group</p>
+    <div class="section-header">
+      <p class="section-title">Uge 1 — Fundament + første aktivering</p>
+      <p class="section-desc">Patient har haft FU, men ikke booket næste aftale/behandling</p>
+    </div>
+    <div class="cards">
+      <div class="card green"><div class="number" id="se-0-3">-</div><div class="label">0 - 3 mdr.</div></div>
+      <div class="card amber"><div class="number" id="se-3-12">-</div><div class="label">3 - 12 mdr.</div></div>
+      <div class="card red"><div class="number" id="se-12plus">-</div><div class="label">12+ mdr.</div></div>
+    </div>
+    <p class="updated" id="se-updated"></p>
   </div>
-  <div class="cards">
-    <div class="card green"><div class="number" id="count-0-3">-</div><div class="label">0 - 3 mdr.</div></div>
-    <div class="card amber"><div class="number" id="count-3-12">-</div><div class="label">3 - 12 mdr.</div></div>
-    <div class="card red"><div class="number" id="count-12plus">-</div><div class="label">12+ mdr.</div></div>
+
+  <!-- Norge -->
+  <div class="page" id="page-no">
+    <h1>🇳🇴 Kontaktoversigt Norge</h1>
+    <p class="subtitle">Nordic Health Group</p>
+    <div class="section-header">
+      <p class="section-title">Uge 1 — Fundament + første aktivering</p>
+      <p class="section-desc">Patient har haft FU, men ikke booket næste aftale/behandling</p>
+    </div>
+    <div class="cards">
+      <div class="card green"><div class="number" id="no-0-3">-</div><div class="label">0 - 3 mdr.</div></div>
+      <div class="card amber"><div class="number" id="no-3-12">-</div><div class="label">3 - 12 mdr.</div></div>
+      <div class="card red"><div class="number" id="no-12plus">-</div><div class="label">12+ mdr.</div></div>
+    </div>
+    <p class="updated" id="no-updated"></p>
   </div>
-  <p class="updated" id="updated-at"></p>
+
   <script>
-    const data = { "0-3": 42, "3-12": 87, "12+": 134 };
-    document.getElementById('count-0-3').textContent = data['0-3'].toLocaleString('da-DK');
-    document.getElementById('count-3-12').textContent = data['3-12'].toLocaleString('da-DK');
-    document.getElementById('count-12plus').textContent = data['12+'].toLocaleString('da-DK');
-    const now = new Date();
-    const pad = n => String(n).padStart(2,'0');
-    document.getElementById('updated-at').textContent = 'Sidst opdateret: ' + now.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }) + ' kl.' + pad(now.getHours()) + '.' + pad(now.getMinutes());
+    // ── DATA ──────────────────────────────────────────
+    const data = {
+      se: { "0-3": 42, "3-12": 87, "12+": 134 },
+      no: { "0-3": 0,  "3-12": 0,  "12+": 0  }
+    };
+    // ─────────────────────────────────────────────────
+
+    function render(country) {
+      const d = data[country];
+      document.getElementById(country + '-0-3').textContent   = d['0-3'].toLocaleString('da-DK');
+      document.getElementById(country + '-3-12').textContent  = d['3-12'].toLocaleString('da-DK');
+      document.getElementById(country + '-12plus').textContent = d['12+'].toLocaleString('da-DK');
+      const now = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      document.getElementById(country + '-updated').textContent =
+        'Sidst opdateret: ' + now.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }) +
+        ' kl.' + pad(now.getHours()) + '.' + pad(now.getMinutes());
+    }
+
+    function showPage(id, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    render('se');
+    render('no');
   </script>
+
 </body>
 </html>
